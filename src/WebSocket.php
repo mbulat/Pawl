@@ -127,7 +127,7 @@ class WebSocket implements EventEmitterInterface {
             }
         } else {
             if (!($msg instanceof Frame)) {
-                $msg = new Frame($msg);
+                $msg = new Frame($msg, true, Frame::OP_BINARY);
             }
             $msg->maskPayload();
         }
