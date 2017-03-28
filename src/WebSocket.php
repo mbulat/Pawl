@@ -122,7 +122,8 @@ class WebSocket implements EventEmitterInterface {
 
     public function send($msg) {
         $msg = new Frame($msg, true, Frame::OP_BINARY);
-        $this->_stream->write($msg);
+        $msg->maskPayload();
+        $this->_stream->write($msg->getContents());
     }
 
     public function close($code = 1000, $reason = '') {
