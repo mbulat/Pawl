@@ -121,17 +121,8 @@ class WebSocket implements EventEmitterInterface {
     }
 
     public function send($msg) {
-        if ($msg instanceof MessageInterface) {
-            foreach ($msg as $frame) {
-                $frame->maskPayload();
-            }
-        } else {
-            if (!($msg instanceof Frame)) {
-                $msg = new Frame($msg, true, Frame::OP_BINARY);
-            }
-            $msg->maskPayload();
-        }
-
+        $msg = new Frame($msg, true, Frame::OP_BINARY);
+        $msg->maskPayload();
         $this->_stream->write($msg->getContents());
     }
 
